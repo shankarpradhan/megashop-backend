@@ -109,7 +109,7 @@ export const forgotPassword = async (req, res) => {
         user.passwordResetExpires = Date.now() + 15 * 60 * 1000; // Token valid for 15 minutes
         await user.save();
 
-        const resetLink = `http://localhost:3000/auth/reset-password?token=${resetToken}`;
+        const resetLink = `https://megashop-8d076.web.app/auth/reset-password?token=${resetToken}`;
 
         await transporter.sendMail({
             from: process.env.EMAIL_USER,

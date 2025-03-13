@@ -50,15 +50,11 @@ export const loginUser = async (req, res) => {
         const user = await User.findOne({ email }).select("+password");
 
         if (!user) {
-            console.log("User not found");
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        console.log("User Found:", user);
-
         // ✅ Ensure password exists
         if (!user.password) {
-            console.log("User password is missing in database!");
             return res.status(500).json({ message: "User password is missing" });
         }
 
@@ -68,17 +64,11 @@ export const loginUser = async (req, res) => {
             console.log("Invalid credentials: Password mismatch");
             return res.status(401).json({ message: "Invalid credentials" });
         }
-
-        console.log("Password Match:", isMatch);
-
         const token = jwt.sign(
             { id: user._id, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: "1d" }
         );
-
-        console.log("Generated Token:", token);
-
         res.json({ token, user: { id: user._id, name: user.name, role: user.role } });
 
     } catch (error) {

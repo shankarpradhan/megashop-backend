@@ -3,7 +3,7 @@ import Razorpay from "razorpay";
 import dotenv from "dotenv";
 import crypto from "crypto";
 
-import { verifyToken } from "../controllers/authController";
+import { verifyToken } from "../controllers/authController.js";
 
 dotenv.config();
 const router = express.Router();
